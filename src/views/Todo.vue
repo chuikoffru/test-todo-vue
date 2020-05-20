@@ -23,12 +23,17 @@
               v-resize>
             </textarea>
           </div>
+          <div class="input__button">
+            <button class="input__button-remove" @click="removeTask(i)">Удалить</button>
+          </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import autoHeight from '@/libs/autoHeight';
+
 export default {
   name: 'Todo',
   data() {
@@ -48,6 +53,9 @@ export default {
       });
       this.newTask = '';
     },
+    removeTask(index) {
+      this.$store.commit('removeTask', { index, id: +this.$route.params.id });
+    },
   },
   beforeMount() {
     if (!this.getTodoList) {
@@ -56,14 +64,9 @@ export default {
   },
   directives: {
     resize: {
-      inserted(el) {
-        // eslint-disable-next-line no-param-reassign
-        el.style.height = `${el.scrollHeight}px`;
-      },
-      update(el) {
-        // eslint-disable-next-line no-param-reassign
-        el.style.height = `${el.scrollHeight}px`;
-      },
+      inserted: (el) => autoHeight(el),
+      update: (el) => autoHeight(el),
+      componentUpdated: (el) => autoHeight(el),
     },
   },
 };
@@ -122,11 +125,12 @@ export default {
               background: #000
         &__text
           width: 100%
+          padding-right: 20px
           &-textarea
             width: 100%
             resize: none
-            overflow: hidden
             background: $co-bg
             border: 0
             font-size: 1rem
+            margin-top: 3px
 </style>

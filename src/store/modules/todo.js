@@ -19,29 +19,26 @@ export default {
       state.idx += 1;
       localStorage.setItem(DB_NAME, JSON.stringify(state.todos));
       localStorage.setItem(AI_NAME, state.idx);
-      router.push(`/todo/${state.idx - 1}`);
     },
     removeTodo(state, index) {
       state.todos.splice(index, 1);
     },
     addTask(state, payload) {
       const index = state.todos.findIndex((s) => s.id === payload.id);
-      console.log('state.todos, payload', state.todos, payload);
       state.todos[index].tasks.push({
         text: payload.text,
         status: false,
       });
     },
-    removeTask(state, id, task) {
-      console.log('state, id', state, id, task);
-    },
-    editTodoTask(state, id, task) {
-      console.log('state, id', state, id, task);
+    removeTask(state, payload) {
+      const index = state.todos.findIndex((s) => s.id === payload.id);
+      state.todos[index].tasks.splice(payload.index, 1);
     },
   },
   actions: {
-    createTodo({ commit }) {
+    createTodo({ commit, state }) {
       commit('addTodo');
+      router.push(`/todo/${state.idx - 1}`);
     },
     removeTodo({ commit, dispatch }, index) {
       commit('removeTodo', index);
