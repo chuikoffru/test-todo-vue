@@ -71,6 +71,7 @@ export default {
     confirmRemove() {
       this.removeTodo(this.modal.index);
       this.cancelRemove();
+      this.$router.push('/');
     },
     cancelRemove() {
       this.modal = {
@@ -92,7 +93,7 @@ export default {
   &__empty
     text-align: center
     padding: 25px
-    height: 97%
+    height: 90%
     display: flex
     justify-content: center
     align-items: center
@@ -135,12 +136,12 @@ export default {
         &-remove
           background: $sb-color
           padding: 5px 10px
-          display: none
+          visibility: hidden
       &:hover
         background: $border
         cursor: pointer
         .todo__right-remove
-          display: inline-block
+          visibility: visible
       &:last-child
         border-bottom: 0
       a

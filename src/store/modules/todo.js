@@ -26,6 +26,7 @@ export default {
     },
     addTask(state, payload) {
       const index = state.todos.findIndex((s) => s.id === payload.id);
+      console.log('state.todos, payload', state.todos, payload);
       state.todos[index].tasks.push({
         text: payload.text,
         status: false,

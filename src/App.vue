@@ -43,7 +43,7 @@ a
   background: $sb-bg
 .right
   flex-basis: 70%
-  background: #eee
+  background: $co-bg
 .content
   overflow: auto
   height: 100vh

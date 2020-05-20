@@ -47,7 +47,7 @@ export default {
 .header
   width: 100%
   height: 60px
-  background: #ccc
+  background: $he-bg
   display: flex
   justify-content: space-between
   &__left
@@ -56,9 +56,8 @@ export default {
       color: $border
       width: 100%
       border: 0
-      background: inherit
-      border-bottom: 2px solid $border
-      border-left: 2px solid $border
+      background: $he-bg
+      border-bottom: 2px solid $he-border
       font-size: 1.6em
       padding: 5px 10px
       margin: 10px 25px
