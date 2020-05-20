@@ -29,6 +29,8 @@ export default {
     getTodo() {
       if (this.$route.params.id) {
         this.todo = this.$store.getters.getTodoById(+this.$route.params.id);
+      } else {
+        this.todo = null;
       }
     },
     updateTitle(e) {

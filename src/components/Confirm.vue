@@ -1,11 +1,11 @@
 <template>
   <transition name="modal">
     <div class="modal">
-      <div class="modal-window">
-        <p>{{modal.message}}</p>
-        <div class="actions">
-          <button class="cancel" @click="onCancel">Отмена</button>
-          <button class="confirm" @click="onConfirm">Подтвердить</button>
+      <div class="modal__window">
+        <div class="modal__window-message">{{modal.message}}</div>
+        <div class="modal__window-actions actions">
+          <button class="actions__cancel" @click="onCancel">Отмена</button>
+          <button class="actions__confirm" @click="onConfirm">Подтвердить</button>
         </div>
       </div>
     </div>
@@ -35,36 +35,38 @@ export default {
   bottom: 0
   right: 0
   background: rgba(0, 0, 0, 0.5)
-.modal-window
-  position: absolute
-  top: 50%
-  left: 50%
-  transition: .5s
-  width: 100%
-  min-width: 400px
-  max-width: 600px
-  background: white
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
-  transform: translate(-50%, -50%)
-  padding: 1em
-  color: black
-  text-align: center
-  .actions
-    display: flex
-    justify-content: flex-end
-.actions
-  button
-    font-size: inherit
-    margin: 4px
-    border: none
-    padding: 6px 8px
-    cursor: pointer
-  .cancel
-    background: darkred
-    color: white
-  .confirm
-    background: darkcyan
-    color: white
+  &__window
+    position: absolute
+    top: 50%
+    left: 50%
+    transition: .5s
+    width: 100%
+    min-width: 400px
+    max-width: 600px
+    background: white
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+    transform: translate(-50%, -50%)
+    padding: 2.5rem
+    color: black
+    text-align: center
+    &-message
+      font-size: 1.2rem
+      margin-bottom: 20px
+    .actions
+      display: flex
+      justify-content: center
+      &__cancel, &__confirm
+        margin: 4px
+        border: none
+        padding: 10px 15px
+        cursor: pointer
+        font-size: inherit
+      &__cancel
+        background: darkred
+        color: white
+      &__confirm
+        background: darkcyan
+        color: white
 .appear-enter
   opacity: 0
   .modal-window

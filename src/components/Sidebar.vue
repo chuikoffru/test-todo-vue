@@ -1,7 +1,9 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar__top">
-      <div class="sidebar__top-title">Списки задач</div>
+      <div class="sidebar__top-title">
+        <router-link to="/">Списки задач</router-link>
+      </div>
       <div class="sidebar__top-addButton">
         <button @click="createTodo" title="Создать новый список">+</button>
       </div>
@@ -14,9 +16,15 @@
         :key="todo.id"
         :to="'/todo/' + todo.id"
       >
-        <h3 class="todo__title">#{{todo.id}} {{todo.title}}</h3>
-        <p class="todo__description" v-show="todo.tasks.length > 0">{{todo.tasks.join(', ')}}</p>
-        <button class="todo__remove" @click.stop="showConfirm(i)">Удалить</button>
+        <div class="todo__left">
+          <h3 class="todo__left-title">#{{todo.id}} {{todo.title}}</h3>
+          <p class="todo__left-description" v-show="todo.tasks.length > 0">
+            {{todo.tasks.join(', ')}}
+          </p>
+        </div>
+        <div class="todo__right">
+          <button class="todo__right-remove" @click.stop="showConfirm(i)">Удалить</button>
+        </div>
       </router-link>
     </div>
     <div class="sidebar__empty" v-else>
@@ -96,7 +104,8 @@ export default {
       font-size: 1.5rem
       font-weight: bold
       padding-top: 12px
-      color: $sb-color
+      a
+        color: $sb-color
     &-addButton button
       font-size: 1.2rem
       font-weight: bold
@@ -111,15 +120,27 @@ export default {
     .todo
       padding: 25px
       border-bottom: 1px solid $border
+      display: flex
+      justify-content: space-between
       &.router-link-active
         background: $border
-      &__title
-        font-size: 1.2rem
-      &__description
-        margin-top: 10px
+      &__left
+        &-title
+          font-size: 1.1rem
+          margin-top: 5px
+        &-description
+          margin-top: 10px
+      &__right
+        height: 25px
+        &-remove
+          background: $sb-color
+          padding: 5px 10px
+          display: none
       &:hover
         background: $border
         cursor: pointer
+        .todo__right-remove
+          display: inline-block
       &:last-child
         border-bottom: 0
       a
