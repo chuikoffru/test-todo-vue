@@ -32,13 +32,15 @@ html, body
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+a
+  text-decoration: none
 #app
   display: flex
   flex-direction: row
   height: 100vh
 .left
   flex-basis: 30%
-  background: #000
+  background: $sb-bg
 .right
   flex-basis: 70%
   background: #eee
@@ -46,4 +48,9 @@ html, body
   overflow: auto
   height: 100vh
   padding: 25px 25px 80px
+.button
+  background: #000
+  color: #fff
+  padding: 15px 20px
+  font-size: 1rem
 </style>
