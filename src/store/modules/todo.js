@@ -24,16 +24,15 @@ export default {
     removeTodo(state, index) {
       state.todos.splice(index, 1);
     },
-    addTask(state, id, task) {
-      console.log('state, id', state, id, task);
+    addTask(state, payload) {
+      const index = state.todos.findIndex((s) => s.id === payload.id);
+      state.todos[index].tasks.push({
+        text: payload.text,
+        status: false,
+      });
     },
     removeTask(state, id, task) {
       console.log('state, id', state, id, task);
-    },
-    updateTitle(state, id, title) {
-      const index = state.todos.findIndex((s) => s.id === id);
-      console.log('index', index);
-      console.log('state, id', state, title);
     },
     editTodoTask(state, id, task) {
       console.log('state, id', state, id, task);
@@ -46,6 +45,9 @@ export default {
     removeTodo({ commit, dispatch }, index) {
       commit('removeTodo', index);
       dispatch('saveData');
+    },
+    addTask({ commit }, payload) {
+      commit('addTask', payload);
     },
     saveData({ state }) {
       localStorage.setItem(DB_NAME, JSON.stringify(state.todos));

@@ -19,7 +19,7 @@
         <div class="todo__left">
           <h3 class="todo__left-title">#{{todo.id}} {{todo.title}}</h3>
           <p class="todo__left-description" v-show="todo.tasks.length > 0">
-            {{todo.tasks.join(', ')}}
+            <span v-for="t in todo.tasks" :key="t.text">{{t.text}}, </span>
           </p>
         </div>
         <div class="todo__right">

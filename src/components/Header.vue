@@ -61,7 +61,7 @@ export default {
       border-left: 2px solid $border
       font-size: 1.6em
       padding: 5px 10px
-      margin: 10px
+      margin: 10px 25px
   &__right
     &-button
       margin: 5px

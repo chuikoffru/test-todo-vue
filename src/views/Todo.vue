@@ -1,6 +1,18 @@
 <template>
   <div class="todo">
-    {{tasks}}
+    <div class="todo__input">
+      <input
+        type="text"
+        v-model="newTask"
+        placeholder="Введите описание задачи"
+        @keydown.enter="addTask"
+      >
+    </div>
+    <div class="todo__list">
+      <div class="todo__list-item" v-for="(task, i) in tasks" :key="i">
+        <label><input type="checkbox" v-model="task.status"> {{task.title}}</label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,29 +23,34 @@ export default {
   name: 'Todo',
   data() {
     return {
+      id: +this.$route.params.id,
+      newTask: '',
       tasks: [],
     };
   },
   computed: mapGetters(['getTodos', 'getTodoById']),
   watch: {
-    getTodos: 'checkTodo',
+    $route: 'getTodo',
   },
   methods: {
-    checkTodo() {
-      if (!this.getTodoById(+this.$route.params.id)) {
+    getTodo() {
+      const todo = this.getTodoById(this.id).tasks;
+      if (!todo) {
         this.$router.push('/');
+      } else {
+        this.tasks = todo;
       }
     },
-  },
-  mounted() {
-    if (this.getTodos.length > 0) {
-      this.tasks = this.getTodoById(+this.$route.params.id).tasks;
-    } else {
-      this.$router.push('/');
-    }
+    addTask() {
+      this.$store.dispatch('addTask', {
+        id: this.id, text: this.newTask,
+      });
+      this.newTask = '';
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
+.todo
 </style>
