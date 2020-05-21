@@ -6,35 +6,29 @@
         v-model="newTask"
         placeholder="Введите описание задачи и нажмите Enter"
         @keydown.enter="addTask"
-      >
-      <img src="@/assets/enter-key.png" width="32"
-        title="Нажмите Enter чтобы добавить новую задачу">
+      />
+      <img
+        src="@/assets/enter-key.png"
+        width="32"
+        title="Нажмите Enter чтобы добавить новую задачу"
+      />
     </div>
     <div class="todo__list" v-if="getTodoList">
       <div class="todo__list-item input" v-for="(task, i) in getTodoList.tasks" :key="i">
-          <div class="input__status">
-            <input class="input__status-checkbox" type="checkbox" v-model="task.status">
-            <label class="input__status-checkbox-custom" :class="{active : task.status}"></label>
-          </div>
-          <div class="input__text">
-            <textarea
-              class="input__text-textarea"
-              v-model="task.text"
-              v-resize>
-            </textarea>
-          </div>
-          <div class="input__button">
-            <button class="input__button-remove" @click="removeTask(i)">Удалить</button>
-          </div>
+        <div class="input__status">
+          <input class="input__status-checkbox" type="checkbox" v-model="task.status" />
+          <label class="input__status-checkbox-custom" :class="{active : task.status}"></label>
+        </div>
+        <div class="input__text">
+          <textarea class="input__text-textarea" v-model="task.text" v-resize></textarea>
+        </div>
+        <div class="input__button">
+          <button class="input__button-remove" @click="removeTask(i)">Удалить</button>
+        </div>
       </div>
     </div>
     <transition name="appear">
-      <Confirm
-        :modal="modal"
-        v-if="modal.isVisible"
-        @confirm="confirmSave"
-        @cancel="cancelSave"
-      />
+      <Confirm :modal="modal" v-if="modal.isVisible" @confirm="confirmSave" @cancel="cancelSave" />
     </transition>
   </div>
 </template>
@@ -61,21 +55,30 @@ export default {
   },
   computed: {
     getTodoList() {
-      return this.$route.params.id && this.$store.getters.getTodoById(+this.$route.params.id);
+      return (
+        this.$route.params.id
+        && this.$store.getters.getTodoById(+this.$route.params.id)
+      );
     },
   },
   methods: {
     addTask() {
+      // Добавляем новую задачу
       this.$store.dispatch('addTask', {
-        id: +this.$route.params.id, text: this.newTask,
+        id: +this.$route.params.id,
+        text: this.newTask,
       });
+      // Сбрасываем текстовое поле
       this.newTask = '';
     },
     removeTask(index) {
+      // Удаляем задачу
       this.$store.commit('removeTask', { index, id: +this.$route.params.id });
     },
     confirmSave() {
+      // Сохраняем данные в localStorage
       this.$store.dispatch('saveData');
+      // Скрываем модальное окно и перенаправляем пользователя дальше
       this.modal.isVisible = false;
       this.$router.push(this.modal.nextPath);
     },

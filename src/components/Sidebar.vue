@@ -19,9 +19,7 @@
         <div class="todo__left">
           <h3 class="todo__left-title">#{{todo.id}} {{todo.title}}</h3>
           <p class="todo__left-description" v-if="todo.tasks.length > 0">
-            <time>
-              {{new Date(todo.createdAt).toLocaleDateString()}}
-            </time>
+            <time>{{new Date(todo.createdAt).toLocaleDateString()}} </time>
             <span v-for="t in todo.tasks" :key="t.text">{{t.text}}</span>
           </p>
         </div>

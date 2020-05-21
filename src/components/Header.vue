@@ -1,12 +1,7 @@
 <template>
   <header class="header" v-if="todo">
     <div class="header__left">
-      <input
-        type="text"
-        class="header__left-title"
-        ref="title"
-        v-model="todo.title"
-      />
+      <input type="text" class="header__left-title" ref="title" v-model="todo.title" />
     </div>
     <div class="header__right">
       <button class="header__right-button button" @click="resetData">Отменить изменения</button>

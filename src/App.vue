@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <div class="left">
-      <Sidebar/>
+      <Sidebar />
     </div>
     <div class="right">
-      <Header/>
+      <Header />
       <section class="content">
-        <router-view/>
+        <router-view />
       </section>
     </div>
   </div>
@@ -49,8 +49,8 @@ a
   height: 100vh
   padding: 25px 25px 80px
 .button
-  background: #000
-  color: #fff
+  background: $sb-bg
+  color: $co-bg
   padding: 15px 20px
   font-size: 1rem
 </style>

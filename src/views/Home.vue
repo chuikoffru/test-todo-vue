@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home__create">
-      <img src="@/assets/pngfuel.com.png" width="250" alt="Create new todo">
+      <img src="@/assets/pngfuel.com.png" width="250" alt="Create new todo" />
       <p class="home__create-title">Создайте новый список задач</p>
       <button class="home__create-button button" @click="createTodo">Создать список</button>
     </div>
