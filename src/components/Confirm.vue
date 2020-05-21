@@ -52,6 +52,7 @@ export default {
     &-message
       font-size: 1.2rem
       margin-bottom: 20px
+      line-height: 150%
     .actions
       display: flex
       justify-content: center

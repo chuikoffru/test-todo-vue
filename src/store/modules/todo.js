@@ -1,7 +1,5 @@
 import router from '@/router';
-
-const DB_NAME = 'todo';
-const AI_NAME = 'auto_increment_todo';
+import { DB_NAME, AI_NAME } from '@/store/config';
 
 export default {
   state: {
@@ -9,6 +7,9 @@ export default {
     idx: +localStorage.getItem(AI_NAME) || 1,
   },
   mutations: {
+    updateAll(state, data) {
+      state.todos = data;
+    },
     addTodo(state) {
       state.todos.push({
         id: state.idx,
@@ -46,6 +47,10 @@ export default {
     },
     addTask({ commit }, payload) {
       commit('addTask', payload);
+    },
+    resetData({ commit }) {
+      const savedState = JSON.parse(localStorage.getItem(DB_NAME)) || [];
+      commit('updateAll', savedState);
     },
     saveData({ state }) {
       localStorage.setItem(DB_NAME, JSON.stringify(state.todos));

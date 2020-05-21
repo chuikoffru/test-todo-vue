@@ -28,17 +28,35 @@
           </div>
       </div>
     </div>
+    <transition name="appear">
+      <Confirm
+        :modal="modal"
+        v-if="modal.isVisible"
+        @confirm="confirmSave"
+        @cancel="cancelSave"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
+import { DB_NAME } from '@/store/config';
+import Confirm from '@/components/Confirm.vue';
 import autoHeight from '@/libs/autoHeight';
 
 export default {
   name: 'Todo',
+  components: {
+    Confirm,
+  },
   data() {
     return {
       newTask: '',
+      modal: {
+        isVisible: false,
+        message: 'У вас остались несохраненные данные. Желаете их сохранить?',
+        nextPath: null,
+      },
     };
   },
   computed: {
@@ -56,13 +74,39 @@ export default {
     removeTask(index) {
       this.$store.commit('removeTask', { index, id: +this.$route.params.id });
     },
+    confirmSave() {
+      this.$store.dispatch('saveData');
+      this.modal.isVisible = false;
+      this.$router.push(this.modal.nextPath);
+    },
+    cancelSave() {
+      this.modal.isVisible = false;
+    },
+  },
+  beforeRouteUpdate(to, from, next) {
+    // Получаем текущее состояние
+    const currentState = JSON.stringify(this.$store.getters.getTodos);
+    // Получаем сохраненное состояние
+    const savedState = localStorage.getItem(DB_NAME);
+    // Проверяем актуальность сохраненных данных
+    if (currentState !== savedState) {
+      // Если данные не совпадают, показываем всплывающее окно
+      this.modal.isVisible = true;
+      this.modal.nextPath = to.path;
+    } else {
+      // Если данные совпадают, позволяем идти дальше
+      next();
+    }
   },
   beforeMount() {
+    // Перед монтированием, проверяем есть ли такой список
     if (!this.getTodoList) {
+      // Если нет, отправляем на главную страницу
       this.$router.push('/');
     }
   },
   directives: {
+    // Автоматически меняем высоту textarea
     resize: {
       inserted: (el) => autoHeight(el),
       update: (el) => autoHeight(el),

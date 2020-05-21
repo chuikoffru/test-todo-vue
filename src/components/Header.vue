@@ -9,6 +9,7 @@
       />
     </div>
     <div class="header__right">
+      <button class="header__right-button button" @click="resetData">Отменить изменения</button>
       <button class="header__right-button button" @click="saveData">Сохранить</button>
     </div>
   </header>
@@ -32,6 +33,9 @@ export default {
       } else {
         this.todo = null;
       }
+    },
+    resetData() {
+      this.$store.dispatch('resetData');
     },
     updateTitle(e) {
       this.$store.commit('updateTitle', +this.$route.params.id, e.target.value);
